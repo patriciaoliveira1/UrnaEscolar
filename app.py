@@ -5,7 +5,7 @@ class Application:
         self.fontePadrao = ("Arial", "10")
 
         self.primeiroContainer = Frame(master)
-        self.primeiroContainer["pady"] = 10
+        self.primeiroContainer["pady"] = 20
         self.primeiroContainer.pack()
   
         self.segundoContainer = Frame(master)
@@ -21,11 +21,11 @@ class Application:
         self.quartoContainer.pack()
 
 
-        self.titulo = Label(self.primeiroContainer, text="Login do sistema")
-        self.titulo["font"] = ("Arial", "10", "bold")
+        self.titulo = Label(self.primeiroContainer, text="Login")
+        self.titulo["font"] = ("Arial", "12", "bold")
         self.titulo.pack()
   
-        self.nomeLabel = Label(self.segundoContainer,text="Nome", font=self.fontePadrao)
+        self.nomeLabel = Label(self.segundoContainer,text="Usuario", font=self.fontePadrao)
         self.nomeLabel.pack(side=LEFT)
   
         self.nome = Entry(self.segundoContainer)
@@ -33,7 +33,7 @@ class Application:
         self.nome["font"] = self.fontePadrao
         self.nome.pack(side=LEFT)
   
-        self.senhaLabel = Label(self.terceiroContainer, text="Senha", font=self.fontePadrao)
+        self.senhaLabel = Label(self.terceiroContainer, text=" Senha ", font=self.fontePadrao)
         self.senhaLabel.pack(side=LEFT)
   
         self.senha = Entry(self.terceiroContainer)
@@ -57,12 +57,13 @@ class Application:
     def verificaSenha(self):
         usuario = self.nome.get()
         senha = self.senha.get()
-        if usuario == "admin" and senha == "admin":
-            self.mensagem["text"] = "Autenticado"
+        if usuario == "admin" and senha == "!@4dm1n#":
+            self.mensagem["text"] = "Login efetuado com sucesso!"
         else:
-            self.mensagem["text"] = "Erro na autenticação"
+            self.mensagem["text"] = "Usuário/senha inválidos"
   
   
 root = Tk()
 Application(root)
+root.title("Urna Escolar 2020")
 root.mainloop()
