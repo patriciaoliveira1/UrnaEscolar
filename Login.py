@@ -1,48 +1,48 @@
 from tkinter import *
   
-class Application:
+class Login:
     def __init__(self, master=None):
         self.fontePadrao = ("Arial", "10")
 
-        self.primeiroContainer = Frame(master)
-        self.primeiroContainer["pady"] = 20
-        self.primeiroContainer.pack()
+        self.Titulo = Frame(master)
+        self.Titulo["pady"] = 20
+        self.Titulo.pack()
   
-        self.segundoContainer = Frame(master)
-        self.segundoContainer["padx"] = 20
-        self.segundoContainer.pack()
+        self.CampoUsuario = Frame(master)
+        self.CampoUsuario["padx"] = 20
+        self.CampoUsuario.pack()
   
-        self.terceiroContainer = Frame(master)
-        self.terceiroContainer["padx"] = 20
-        self.terceiroContainer.pack()
+        self.CampoSenha = Frame(master)
+        self.CampoSenha["padx"] = 20
+        self.CampoSenha.pack()
   
-        self.quartoContainer = Frame(master)
-        self.quartoContainer["pady"] = 20
-        self.quartoContainer.pack()
+        self.BotaoLog = Frame(master)
+        self.BotaoLog["pady"] = 20
+        self.BotaoLog.pack()
 
 
-        self.titulo = Label(self.primeiroContainer, text="Login")
+        self.titulo = Label(self.Titulo, text="Login")
         self.titulo["font"] = ("Arial", "12", "bold")
         self.titulo.pack()
   
-        self.nomeLabel = Label(self.segundoContainer,text="Usuario", font=self.fontePadrao)
+        self.nomeLabel = Label(self.CampoUsuario,text="Usuario", font=self.fontePadrao)
         self.nomeLabel.pack(side=LEFT)
   
-        self.nome = Entry(self.segundoContainer)
+        self.nome = Entry(self.CampoUsuario)
         self.nome["width"] = 30
         self.nome["font"] = self.fontePadrao
         self.nome.pack(side=LEFT)
   
-        self.senhaLabel = Label(self.terceiroContainer, text=" Senha ", font=self.fontePadrao)
+        self.senhaLabel = Label(self.CampoSenha, text=" Senha ", font=self.fontePadrao)
         self.senhaLabel.pack(side=LEFT)
   
-        self.senha = Entry(self.terceiroContainer)
+        self.senha = Entry(self.CampoSenha)
         self.senha["width"] = 30
         self.senha["font"] = self.fontePadrao
         self.senha["show"] = "*"
         self.senha.pack(side=LEFT)
   
-        self.autenticar = Button(self.quartoContainer)
+        self.autenticar = Button(self.BotaoLog)
         self.autenticar["text"] = "Autenticar"
         self.autenticar["font"] = ("Calibri", "8")
         self.autenticar["width"] = 12
@@ -50,7 +50,7 @@ class Application:
         self.autenticar.pack()
   
 
-        self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
+        self.mensagem = Label(self.BotaoLog, text="", font=self.fontePadrao)
         self.mensagem.pack()
   
     #Método verificar senha
@@ -58,12 +58,12 @@ class Application:
         usuario = self.nome.get()
         senha = self.senha.get()
         if usuario == "admin" and senha == "!@4dm1n#":
-            self.mensagem["text"] = "Login efetuado com sucesso!"
+            #self.mensagem["text"] = "Login efetuado com sucesso!"
         else:
             self.mensagem["text"] = "Usuário/senha inválidos"
   
   
 root = Tk()
-Application(root)
+Login(root)
 root.title("Urna Escolar 2020")
 root.mainloop()
