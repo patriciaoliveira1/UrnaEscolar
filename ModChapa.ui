@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
-    <height>429</height>
+    <width>219</width>
+    <height>302</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
-     <width>441</width>
-     <height>271</height>
+     <y>60</y>
+     <width>191</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -28,24 +28,21 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="TextMod">
+   <widget class="QComboBox" name="BoxChapa">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>80</y>
-      <width>151</width>
-      <height>16</height>
+      <x>50</x>
+      <y>40</y>
+      <width>79</width>
+      <height>24</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>Altere a chapa desejada:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="BotaoConfirmMod">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>200</y>
+      <x>50</x>
+      <y>90</y>
       <width>80</width>
       <height>24</height>
      </rect>
@@ -54,16 +51,19 @@
      <string>Confirmar</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>110</y>
-      <width>79</width>
-      <height>24</height>
-     </rect>
-    </property>
-   </widget>
+  </widget>
+  <widget class="QLabel" name="TextMod">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>30</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Altere a chapa desejada:</string>
+   </property>
   </widget>
  </widget>
  <resources/>
