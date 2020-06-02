@@ -7,7 +7,7 @@ from Chapas import Chapas
 class Ui_Window(object):
     def setupUi(self, Window):
         Window.setObjectName("Window")
-        Window.resize(491, 403)
+        Window.resize(510, 460)
 
         #Login
 
@@ -15,7 +15,7 @@ class Ui_Window(object):
         self.centralwidget.setObjectName("centralwidget")
 
         self.FrameWindow = QtWidgets.QFrame(self.centralwidget)
-        self.FrameWindow.setGeometry(QtCore.QRect(70, 60, 351, 251))
+        self.FrameWindow.setGeometry(QtCore.QRect(70, 10, 361, 421))
         self.FrameWindow.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.FrameWindow.setFrameShadow(QtWidgets.QFrame.Raised)
         self.FrameWindow.setObjectName("FrameWindow")
@@ -42,6 +42,11 @@ class Ui_Window(object):
         self.BotaoAcessar.setGeometry(QtCore.QRect(130, 180, 80, 24))
         self.BotaoAcessar.setObjectName("BotaoAcessar")
         self.BotaoAcessar.clicked.connect(self.check_pass)
+
+        self.BotaoVoto = QtWidgets.QPushButton(self.FrameWindow)
+        self.BotaoVoto.setGeometry(QtCore.QRect(120, 360, 111, 24))
+        self.BotaoVoto.setObjectName("BotaoVoto")
+        self.BotaoVoto.clicked.connect(self.mudar_Voto)
 
         Window.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Window)
@@ -155,10 +160,13 @@ class Ui_Window(object):
         self.FrameVoto.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.FrameVoto.setFrameShadow(QtWidgets.QFrame.Raised)
         self.FrameVoto.setObjectName("FrameVoto")
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.FrameVoto)
-        self.buttonBox.setGeometry(QtCore.QRect(90, 210, 166, 24))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        self.BtConfirm = QtWidgets.QDialogButtonBox(self.FrameVoto)
+        self.BtConfirm.setGeometry(QtCore.QRect(90, 210, 166, 24))
+        self.BtConfirm.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.BtConfirm.setObjectName("BtConfirm")
+        self.BtConfirm.accepted.connect(self.confirm_voto)
+        self.BtConfirm.rejected.connect(self.voltar_voto)
+
         self.LabelEscolha = QtWidgets.QLabel(self.FrameVoto)
         self.LabelEscolha.setGeometry(QtCore.QRect(120, 40, 111, 31))
         self.LabelEscolha.setObjectName("LabelEscolha")
@@ -166,8 +174,25 @@ class Ui_Window(object):
         self.labelBV.setGeometry(QtCore.QRect(130, 0, 91, 16))
         self.labelBV.setObjectName("labelBV")
         self.BoxEscolhaCh = QtWidgets.QComboBox(self.FrameVoto)
-        self.BoxEscolhaCh.setGeometry(QtCore.QRect(130, 80, 79, 24))
+        self.BoxEscolhaCh.setGeometry(QtCore.QRect(98, 80, 131, 24))
         self.BoxEscolhaCh.setObjectName("BoxEscolhaCh")
+        self.CampoSenhaVoto = QtWidgets.QLineEdit(self.FrameVoto)
+        self.CampoSenhaVoto.setGeometry(QtCore.QRect(100, 140, 131, 31))
+        self.CampoSenhaVoto.setObjectName("CampoSenhaVoto")
+        self.labelVoto = QtWidgets.QLabel(self.FrameVoto)
+        self.labelVoto.setGeometry(QtCore.QRect(70, 110, 211, 16))
+        self.labelVoto.setObjectName("labelVoto")
+
+
+        chapa = Chapas()
+        chapas = chapa.selectChapa()
+        if(chapas != None):
+            for c in chapas:
+                self.BoxEscolhaCh.addItem(c[1])
+        else:
+            self.BoxEscolhaCh.addItem("Sem Chapas")
+
+
 
         self.retranslateUiVoto(Window)
         QtCore.QMetaObject.connectSlotsByName(Window)
@@ -182,6 +207,7 @@ class Ui_Window(object):
         Window.setWindowTitle(_translate("Dialog", "Dialog"))
         self.LabelEscolha.setText(_translate("Dialog", "Escolha a chapa:"))
         self.labelBV.setText(_translate("Dialog", "Bem-Vindo(a)!"))
+        self.labelVoto.setText(_translate("Dialog", "Por favor, Insira a senha para acesso"))
 
     def retranslateUiModChapa(self, Window):
         _translate = QtCore.QCoreApplication.translate
@@ -197,7 +223,6 @@ class Ui_Window(object):
         self.pushButton.setText(_translate("Window", "Confirmar"))
         self.label.setText(_translate("Window", "Cadastrar Coordenador"))
 
-
     def retranslateUiCadastro(self, Window):
         _translate = QtCore.QCoreApplication.translate
         Window.setWindowTitle(_translate("Window", "Window"))
@@ -206,13 +231,13 @@ class Ui_Window(object):
         self.LabelNumChapa.setText(_translate("Window", "Numero"))
         self.BotaConfirmCad.setText(_translate("Window", "Confirmar"))
 
-
     def retranslateUiLogin(self, Window):
         _translate = QtCore.QCoreApplication.translate
         Window.setWindowTitle(_translate("Window", "MainWindow"))
         self.LabelUser.setText(_translate("Window", "Usuario"))
         self.LabelSenha.setText(_translate("Window", "Senha"))
         self.BotaoAcessar.setText(_translate("Window", "Acessar"))
+        self.BotaoVoto.setText(_translate("Window", "Pagina de Voto"))
 
     def retranslateUiAdmin(self, Window):
         _translate = QtCore.QCoreApplication.translate
@@ -239,6 +264,12 @@ class Ui_Window(object):
 
         coord.insertUser()
 
+    def confirm_voto(self):
+        c = self.BoxEscolhaCh.currentText()
+        chapa = Chapas(c)
+        chapa.acrescentarVoto()
+
+
     def mudar_cadChapa(self):
         self.FrameAdmin.hide()
         self.FrameCadasChapa.show()
@@ -247,6 +278,13 @@ class Ui_Window(object):
         self.FrameAdmin.hide()
         self.FrameCadCoord.show()
 
+    def mudar_Voto(self):
+        self.FrameWindow.hide()
+        self.FrameVoto.show()
+
+    def voltar_voto(self):
+        self.FrameWindow.show()
+        self.FrameVoto.hide()        
 
     def check_pass(self):
         msg = QtWidgets.QMessageBox()

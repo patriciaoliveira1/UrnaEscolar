@@ -3,8 +3,7 @@ from Banco import Banco
 class Chapas(object):
  
  
-    def __init__(self, idchapa = 0, nome = "", num = ""):
-            self.idchapa = idchapa
+    def __init__(self, nome = "", num = ""):
             self.nome = nome
             self.num = num
     
@@ -16,7 +15,7 @@ class Chapas(object):
     
             c = banco.conexao.cursor()
         
-            c.execute("insert into chapas (nome, num) values ('" + self.nome + "', '" + self.num + "' )")
+            c.execute("insert into chapas (nome, num, votos) values ('" + self.nome + "', '" + self.num + "', 0 )")
         
             banco.conexao.commit()
             c.close()
@@ -27,22 +26,25 @@ class Chapas(object):
     
     
     
-    def acrescentarVoto(self,nome,num):
+    def acrescentarVoto(self):
         
         banco = Banco()
-        try:
-    
-            c = banco.conexao.cursor()
-    
-            for linha in c.execute("select nome, num, votos from chapas where nome = '" + nome + "' and num = '" + num + "' "):
-                print(linha)
+        id1 = 0
+        voto1 = 0
+        c = banco.conexao.cursor()
+        for id in c.execute("select idchapa from chapas where nome = '"+self.nome+"' "):
+            id1 = id[0]
+            print(id1)
+        for voto in c.execute("select votos from chapas where idchapa = '"+ str(id1) + "' "):
+            voto1 = voto[0]
+            print(voto1)
         
-            banco.conexao.commit()
-            c.close()
+        c.execute("update chapas set votos = '"+str(voto1+1)+"' where idchapa = '"+str(id1)+"' ")
+    
+        banco.conexao.commit()
+        c.close()
         
-            return "Usuário atualizado com sucesso!"
-        except:
-            return "Ocorreu um erro na alteração do usuário"
+
 
 
 
@@ -78,20 +80,17 @@ class Chapas(object):
         except:
             return "Ocorreu um erro na exclusão do usuário"
     
-    def selectChapa(self, nome, num):
+    def selectChapa(self):
         banco = Banco()
-        try:
+        chapas = []
         
-            c = banco.conexao.cursor()
+        c = banco.conexao.cursor()
         
-            c.execute("select nome, num from chapas where nome = " + nome + " and num = " + num + " ")
+        c.execute("select idchapa, nome, num from chapas")
         
-            for linha in c:
-                self.nome = linha[0]
-                self.num = linha[1]
+        for linha in c:
+            chapas.append(linha)
+            
+        return chapas
+        c.close()
         
-            c.close()
-        
-            return "Busca feita com sucesso!"
-        except:
-            return "Ocorreu um erro na busca do usuário"
