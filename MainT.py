@@ -197,10 +197,52 @@ class Ui_Window(object):
         self.retranslateUiVoto(Window)
         QtCore.QMetaObject.connectSlotsByName(Window)
 
+        #PagCoord
 
+        self.frameCoord = QtWidgets.QFrame(Window)
+        self.frameCoord.hide()
+        self.frameCoord.setGeometry(QtCore.QRect(20, 10, 451, 401))
+        self.frameCoord.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frameCoord.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frameCoord.setObjectName("frameCoord")
+        self.TableVotos = QtWidgets.QTableWidget(self.frameCoord)
+        self.TableVotos.setGeometry(QtCore.QRect(110, 90, 211, 281))
+       
+        qtchapas = Chapas().countChapas()
+        self.TableVotos.setRowCount(qtchapas)
+        self.TableVotos.setColumnCount(2)
+        self.TableVotos.setObjectName("TableVotos")
+        linha = 0
+        coluna = 0
+        for i in Chapas().getVotosChapas():
+            coluna = 0
+            self.TableVotos.setItem(linha,coluna, QtWidgets.QTableWidgetItem(i[0]))
+            coluna = coluna+1
+            self.TableVotos.setItem(linha,coluna, QtWidgets.QTableWidgetItem(str(i[1])))
+            linha = linha+1
+        
+        item = QtWidgets.QTableWidgetItem()
+        self.TableVotos.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.TableVotos.setHorizontalHeaderItem(1, item)
+        self.labelMsgCoord = QtWidgets.QLabel(self.frameCoord)
+        self.labelMsgCoord.setGeometry(QtCore.QRect(150, 30, 121, 20))
+        self.labelMsgCoord.setObjectName("labelMsgCoord")
+
+        self.retranslateCoord(Window)
+        QtCore.QMetaObject.connectSlotsByName(Window)
 
 
     #retranslates
+        
+    def retranslateCoord(self, Window):
+        _translate = QtCore.QCoreApplication.translate
+        Window.setWindowTitle(_translate("Form", "Form"))
+        item = self.TableVotos.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "Chapa"))
+        item = self.TableVotos.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Votos"))
+        self.labelMsgCoord.setText(_translate("Form", "Resultado dos Votos"))
 
     def retranslateUiVoto(self, Window):
         _translate = QtCore.QCoreApplication.translate
@@ -290,13 +332,12 @@ class Ui_Window(object):
         msg = QtWidgets.QMessageBox()
         user = Usuarios()
         linha = user.selectUser(self.TextUser.text(),self.TextPasswd.text())
-        if():
-            print("existe")
         if(self.TextUser.text() == 'admin' and self.TextPasswd.text() == 'admin'):
             self.FrameWindow.hide()
             self.FrameAdmin.show()
         elif(linha != None):
-            pass
+            self.FrameWindow.hide()
+            self.frameCoord.show()
         else:
             msg.setText('Usuario ou Senha Incorreta')
             msg.exec_()

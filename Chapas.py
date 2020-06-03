@@ -93,4 +93,32 @@ class Chapas(object):
             
         return chapas
         c.close()
+
+
+    def countChapas(self):
+        banco = Banco()
+        chapas = []
         
+        c = banco.conexao.cursor()
+        
+        c.execute("select count(nome) from chapas")
+        
+        for linha in c:
+            chapas.append(linha)
+            
+        return chapas[0][0]
+        c.close()   
+
+    def getVotosChapas(self):
+        banco = Banco()
+        chapas = []
+        
+        c = banco.conexao.cursor()
+        
+        c.execute("select nome,votos from chapas")
+        
+        for linha in c:
+            chapas.append(linha)
+            
+        return chapas
+        c.close()   
