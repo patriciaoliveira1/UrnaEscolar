@@ -75,13 +75,9 @@ class Ui_Window(object):
         self.BotChapaCadastro.clicked.connect(self.mudar_cadChapa)
 
         self.BotCadCoord = QtWidgets.QPushButton(self.FrameAdmin)
-        self.BotCadCoord.setGeometry(QtCore.QRect(120, 170, 141, 24))
+        self.BotCadCoord.setGeometry(QtCore.QRect(120, 140, 141, 24))
         self.BotCadCoord.setObjectName("BotCadCoord")
         self.BotCadCoord.clicked.connect(self.mudar_cadCoord)
-
-        self.BotChapaMod = QtWidgets.QPushButton(self.FrameAdmin)
-        self.BotChapaMod.setGeometry(QtCore.QRect(120, 140, 141, 24))
-        self.BotChapaMod.setObjectName("BotChapaMod")
 
         self.retranslateUiAdmin(Window)
         QtCore.QMetaObject.connectSlotsByName(Window)
@@ -179,6 +175,8 @@ class Ui_Window(object):
         self.CampoSenhaVoto = QtWidgets.QLineEdit(self.FrameVoto)
         self.CampoSenhaVoto.setGeometry(QtCore.QRect(100, 140, 131, 31))
         self.CampoSenhaVoto.setObjectName("CampoSenhaVoto")
+        self.CampoSenhaVoto.setEchoMode(QtWidgets.QLineEdit.Password)
+
         self.labelVoto = QtWidgets.QLabel(self.FrameVoto)
         self.labelVoto.setGeometry(QtCore.QRect(70, 110, 211, 16))
         self.labelVoto.setObjectName("labelVoto")
@@ -214,13 +212,7 @@ class Ui_Window(object):
         self.TableVotos.setObjectName("TableVotos")
         linha = 0
         coluna = 0
-        for i in Chapas().getVotosChapas():
-            coluna = 0
-            self.TableVotos.setItem(linha,coluna, QtWidgets.QTableWidgetItem(i[0]))
-            coluna = coluna+1
-            self.TableVotos.setItem(linha,coluna, QtWidgets.QTableWidgetItem(str(i[1])))
-            linha = linha+1
-        
+        self.atualizarTabela(linha,coluna)
         item = QtWidgets.QTableWidgetItem()
         self.TableVotos.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -287,7 +279,6 @@ class Ui_Window(object):
         self.label.setText(_translate("Window", "Bem-vindo(a)!"))
         self.BotChapaCadastro.setText(_translate("Window", "Cadastrar Chapa"))
         self.BotCadCoord.setText(_translate("Window", "Adicionar Coord."))
-        self.BotChapaMod.setText(_translate("Window", "Modificar Chapa"))
 
 
     #Botoes
@@ -307,10 +298,16 @@ class Ui_Window(object):
         coord.insertUser()
 
     def confirm_voto(self):
-        c = self.BoxEscolhaCh.currentText()
-        chapa = Chapas(c)
-        chapa.acrescentarVoto()
-
+        msg = QtWidgets.QMessageBox()
+        if(self.CampoSenhaVoto.text() == 'q1w2e3r4'):
+            c = self.BoxEscolhaCh.currentText()
+            chapa = Chapas(c)
+            chapa.acrescentarVoto()
+            self.CampoSenhaVoto.setText('')
+            self.atualizarTabela(0,0)
+        else:
+            msg.setText('Senha Incorreta')
+            msg.exec_()
 
     def mudar_cadChapa(self):
         self.FrameAdmin.hide()
@@ -341,3 +338,12 @@ class Ui_Window(object):
         else:
             msg.setText('Usuario ou Senha Incorreta')
             msg.exec_()
+
+
+    def atualizarTabela(self,linha,coluna):
+        for i in Chapas().getVotosChapas():
+            coluna = 0
+            self.TableVotos.setItem(linha,coluna, QtWidgets.QTableWidgetItem(i[0]))
+            coluna = coluna+1
+            self.TableVotos.setItem(linha,coluna, QtWidgets.QTableWidgetItem(str(i[1])))
+            linha = linha+1
