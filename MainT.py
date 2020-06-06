@@ -339,7 +339,6 @@ class Ui_Window(object):
             msg.setText('Usuario ou Senha Incorreta')
             msg.exec_()
 
-
     def atualizarTabela(self,linha,coluna):
         for i in Chapas().getVotosChapas():
             coluna = 0
