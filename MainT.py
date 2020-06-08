@@ -107,9 +107,14 @@ class Ui_Window(object):
         self.TextNumChap.setGeometry(QtCore.QRect(150, 150, 31, 21))
         self.TextNumChap.setObjectName("TextNumChap")
         self.BotaConfirmCad = QtWidgets.QPushButton(self.FrameCadasChapa)
-        self.BotaConfirmCad.setGeometry(QtCore.QRect(130, 200, 81, 21))
+        self.BotaConfirmCad.setGeometry(QtCore.QRect(120, 200, 81, 21))
         self.BotaConfirmCad.setObjectName("BotaConfirmCad")
         self.BotaConfirmCad.clicked.connect(self.confirm_cad_chapa)
+        self.BotaVoltar = QtWidgets.QPushButton(self.FrameCadasChapa)
+        self.BotaVoltar.setGeometry(QtCore.QRect(120, 230, 80, 24))
+        self.BotaVoltar.setObjectName("BotaVoltar")
+
+
 
         self.retranslateUiCadastro(Window)
         QtCore.QMetaObject.connectSlotsByName(Window)
@@ -264,6 +269,7 @@ class Ui_Window(object):
         self.LabelSenhaCoord.setText(_translate("Window", "Nome da Chapa"))
         self.LabelNumChapa.setText(_translate("Window", "Numero"))
         self.BotaConfirmCad.setText(_translate("Window", "Confirmar"))
+        self.BotaVoltar.setText(_translate("Form", "Voltar"))
 
     def retranslateUiLogin(self, Window):
         _translate = QtCore.QCoreApplication.translate

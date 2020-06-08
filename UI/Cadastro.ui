@@ -90,7 +90,7 @@
    <widget class="QPushButton" name="BotaConfirmCad">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>120</x>
       <y>200</y>
       <width>81</width>
       <height>21</height>
@@ -98,6 +98,19 @@
     </property>
     <property name="text">
      <string>Confirmar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BotaVoltar">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>230</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Voltar</string>
     </property>
    </widget>
   </widget>
